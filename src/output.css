@@ -7,15 +7,12 @@
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
-    --color-red-500: oklch(63.7% 0.237 25.331);
     --color-red-700: oklch(50.5% 0.213 27.518);
     --color-gray-400: oklch(70.7% 0.022 261.325);
     --color-gray-600: oklch(44.6% 0.03 256.802);
     --color-gray-700: oklch(37.3% 0.034 259.733);
     --color-white: #fff;
     --spacing: 0.25rem;
-    --text-xs: 0.75rem;
-    --text-xs--line-height: calc(1 / 0.75);
     --text-sm: 0.875rem;
     --text-sm--line-height: calc(1.25 / 0.875);
     --text-2xl: 1.5rem;
@@ -197,11 +194,17 @@
   .mt-24 {
     margin-top: calc(var(--spacing) * 24);
   }
+  .ml-3 {
+    margin-left: calc(var(--spacing) * 3);
+  }
   .ml-3\.5 {
     margin-left: calc(var(--spacing) * 3.5);
   }
   .flex {
     display: flex;
+  }
+  .table {
+    display: table;
   }
   .h-\[6vh\] {
     height: 6vh;
@@ -215,20 +218,38 @@
   .min-h-screen {
     min-height: 100vh;
   }
+  .w-\[9vw\] {
+    width: 9vw;
+  }
   .w-\[15vw\] {
     width: 15vw;
   }
   .w-\[19vw\] {
     width: 19vw;
   }
+  .w-\[20vw\] {
+    width: 20vw;
+  }
+  .w-\[39vw\] {
+    width: 39vw;
+  }
   .w-\[45vw\] {
     width: 45vw;
+  }
+  .border-collapse {
+    border-collapse: collapse;
+  }
+  .resize {
+    resize: both;
   }
   .flex-col {
     flex-direction: column;
   }
   .justify-center {
     justify-content: center;
+  }
+  .gap-2 {
+    gap: calc(var(--spacing) * 2);
   }
   .gap-2\.5 {
     gap: calc(var(--spacing) * 2.5);
@@ -264,8 +285,14 @@
   .bg-\[radial-gradient\(ellipse_200\%_40\%_at_center\,rgba\(40\,0\,0\,0\.9\)_0\%\,black_60\%\)\] {
     background-image: radial-gradient(ellipse 200% 40% at center,rgba(40,0,0,0.9) 0%,black 60%);
   }
+  .p-2 {
+    padding: calc(var(--spacing) * 2);
+  }
   .p-2\.5 {
     padding: calc(var(--spacing) * 2.5);
+  }
+  .px-2 {
+    padding-inline: calc(var(--spacing) * 2);
   }
   .px-2\.5 {
     padding-inline: calc(var(--spacing) * 2.5);
@@ -307,6 +334,13 @@
   .text-white {
     color: var(--color-white);
   }
+  .underline {
+    text-decoration-line: underline;
+  }
+  .outline {
+    outline-style: var(--tw-outline-style);
+    outline-width: 1px;
+  }
 }
 @property --tw-border-style {
   syntax: "*";
@@ -317,11 +351,17 @@
   syntax: "*";
   inherits: false;
 }
+@property --tw-outline-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
 @layer properties {
   @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
     *, ::before, ::after, ::backdrop {
       --tw-border-style: solid;
       --tw-font-weight: initial;
+      --tw-outline-style: solid;
     }
   }
 }
