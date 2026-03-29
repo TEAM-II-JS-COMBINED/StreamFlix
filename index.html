@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streamflix landing page</title>
+    <link rel="stylesheet" href="/src/output.css">
+</head>
+<body>
+
+
+<style>
+  /* ── DESIGN TOKENS ─────────────────────────────────────── */
+  :root {
+    --bg:        #0e0e0e;
+    --surface:   #181818;
+    --surface2:  #222222;
+    --red:       #e50914;
+    --red-dark:  #b20710;
+    --white:     #ffffff;
+    --muted:     #b3b3b3;
+    --dim:       #666666;
+    --border:    #2a2a2a;
+    --radius:    8px;
+    --nav-h:     68px;
+    --font-head: 'Bebas Neue', sans-serif;
+    --font-body: 'Outfit', sans-serif;
+  }
+
+  /* ── RESET ──────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  a { text-decoration: none; color: inherit; }
+  img { display: block; max-width: 100%; }
+
+  .navbar {
+    position: sticky; top: 0; z-index: 100;
+    height: var(--nav-h);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 100%);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex; align-items: center;
+    padding: 0 48px; gap: 40px;
+  }
+  .navbar .logo {
+    font-family: var(--font-head);
+    font-size: 30px; letter-spacing: 2px;
+    color: var(--red);
+    margin-right: 16px; flex-shrink: 0;
+  }
+  .nav-links { display: flex; gap: 28px; align-items: center; }
+  .nav-links a {
+    font-size: 14px; font-weight: 500; color: var(--muted);
+    transition: color .2s;
+    position: relative;
+  }
+  .nav-links a.active, .nav-links a:hover { color: var(--white); }
+  .nav-links a.active::after {
+    content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+    height: 2px; background: var(--red); border-radius: 2px;
+  }
+  .nav-right { margin-left: auto; display: flex; align-items: center; gap: 20px; }
+  .search-box {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 24px;
+    padding: 7px 18px;
+    font-size: 13px; color: var(--white);
+    font-family: var(--font-body);
+    width: 200px;
+    transition: border-color .2s, background .2s;
+  }
+  .search-box:focus {
+    outline: none; border-color: var(--red);
+    background: rgba(255,255,255,0.12);
+  }
+  .search-box::placeholder { color: var(--dim); }
+  .avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: var(--red);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 15px; color: white;
+    cursor: pointer; flex-shrink: 0;
+    border: 2px solid transparent;
+    transition: border-color .2s;
+  }
+  .avatar:hover { border-color: var(--white); }
+
+  /* ── BUTTONS ─────────────────────────────────────────────── */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 12px 28px;
+    border-radius: var(--radius);
+    font-family: var(--font-body);
+    font-size: 15px; font-weight: 600;
+    cursor: pointer; transition: all .18s;
+    border: none; text-decoration: none;
+  }
+  .btn-red { background: var(--red); color: white; }
+  .btn-red:hover { background: var(--red-dark); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(229,9,20,.35); }
+  .btn-outline {
+    background: rgba(255,255,255,0.12);
+    color: white;
+    border: 1.5px solid rgba(255,255,255,0.5);
+    backdrop-filter: blur(4px);
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.22); }
+  .btn-ghost { background: transparent; color: var(--muted); font-size: 13px; padding: 8px 0; }
+  .btn-ghost:hover { color: var(--white); }
+  .btn-sm { padding: 8px 18px; font-size: 13px; }
+  .btn-lg { padding: 15px 36px; font-size: 16px; }
+
+  /* ── HERO SECTION ────────────────────────────────────────── */
+  .hero {
+    position: relative;
+    height: 560px;
+    display: flex; align-items: flex-end;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to right, rgba(14,14,14,0.95) 30%, rgba(14,14,14,0.2) 100%),
+      linear-gradient(to top, rgba(14,14,14,1) 0%, rgba(14,14,14,0.4) 30%, transparent 60%);
+    z-index: 1;
+  }
+  .hero-poster {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(135deg, #1a1a3e 0%, #0d0d1a 40%, #1a0d0d 70%, #0d0d0d 100%);
+    /* decorative film grain */
+  }
+  .hero-poster::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 60% 30%, rgba(229,9,20,0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 60%, rgba(60,0,120,0.1) 0%, transparent 40%);
+  }
+  /* Fake movie poster art */
+  .hero-poster-art {
+    position: absolute; right: 0; top: 0; bottom: 0;
+    width: 60%;
+    background: linear-gradient(135deg, #1a0a2e 0%, #0d1a2e 50%, #2e0d0d 100%);
+    clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 100%);
+  }
+  .hero-poster-art::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,255,255,0.01) 40px, rgba(255,255,255,0.01) 80px);
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 0 64px 60px;
+    max-width: 680px;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--red);
+    color: white; font-size: 11px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 4px;
+    margin-bottom: 18px;
+  }
+  .hero-title {
+    font-family: var(--font-head);
+    font-size: 72px; line-height: .95;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+    text-shadow: 0 4px 24px rgba(0,0,0,0.6);
+  }
+  .hero-meta {
+    display: flex; align-items: center; gap: 14px;
+    color: var(--muted); font-size: 14px; font-weight: 500;
+    margin-bottom: 18px;
+  }
+  .hero-meta .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--dim); }
+  .hero-meta .rating { color: #f5c518; font-weight: 700; }
+  .hero-desc {
+    color: #cccccc; font-size: 15px; line-height: 1.7;
+    margin-bottom: 32px; max-width: 480px;
+  }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  /* ── CONTENT ROWS ────────────────────────────────────────── */
+  .content-section { padding: 0 48px; margin-bottom: 48px; }
+  .section-header {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 20px;
+  }
+  .section-title {
+    font-family: var(--font-head);
+    font-size: 22px; letter-spacing: .5px;
+  }
+  .section-accent {
+    height: 3px; width: 36px; border-radius: 2px;
+    background: var(--red);
+  }
+  .section-see-all {
+    margin-left: auto;
+    color: var(--red); font-size: 13px; font-weight: 600;
+    transition: opacity .2s;
+  }
+  .section-see-all:hover { opacity: .7; }
+
+  /* ── MOVIE GRID ──────────────────────────────────────────── */
+  .movie-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 1200px) { .movie-grid { grid-template-columns: repeat(4, 1fr); } }
+  @media (max-width: 900px)  { .movie-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 600px)  { .movie-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .movie-card {
+    border-radius: 8px; overflow: hidden;
+    position: relative; cursor: pointer;
+    transition: transform .25s cubic-bezier(.25,.46,.45,.94), box-shadow .25s;
+    aspect-ratio: 2/3;
+    background: var(--surface);
+  }
+  .movie-card:hover {
+    transform: scale(1.06) translateY(-4px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.7), 0 0 0 1px rgba(229,9,20,0.3);
+    z-index: 2;
+  }
+  .card-poster {
+    width: 100%; height: 100%;
+    background: var(--surface2);
+    position: relative;
+  }
+  .card-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 12px;
+    opacity: 0; transition: opacity .25s;
+  }
+  .movie-card:hover .card-overlay { opacity: 1; }
+  .card-title {
+    font-weight: 700; font-size: 13px;
+    margin-bottom: 4px; line-height: 1.3;
+  }
+  .card-meta {
+    font-size: 11px; color: var(--muted);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .card-rating {
+    position: absolute; top: 8px; left: 8px;
+    background: var(--red);
+    color: white; font-size: 10px; font-weight: 700;
+    padding: 2px 8px; border-radius: 4px;
+  }
+  .card-play-icon {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(229,9,20,0.9);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    transition: transform .2s;
+    backdrop-filter: blur(4px);
+  }
+  .movie-card:hover .card-play-icon { transform: translate(-50%, -50%) scale(1); }
+
+  /* Poster gradient backgrounds (randomised look) */
+  .p1 { background: linear-gradient(135deg,#1a1a3e,#0d1a2e,#3e1a0d); }
+  .p2 { background: linear-gradient(135deg,#2e0d0d,#1a0d2e,#0d2e1a); }
+  .p3 { background: linear-gradient(135deg,#0d2e2e,#2e0d2e,#1a1a0d); }
+  .p4 { background: linear-gradient(135deg,#2e1a0d,#0d0d2e,#1a2e0d); }
+  .p5 { background: linear-gradient(135deg,#1a0d1a,#2e2e0d,#0d1a2e); }
+  .p6 { background: linear-gradient(135deg,#0d2e0d,#1a0d2e,#2e1a1a); }
+
+  /* ── FOOTER ──────────────────────────────────────────────── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 48px;
+    text-align: center;
+    color: var(--dim); font-size: 13px;
+  }
+  footer span { color: var(--red); font-weight: 700; }
+
+  /* ── MISC ────────────────────────────────────────────────── */
+  .spacer { height: 56px; }
+
+  /* ── RESPONSIVE ──────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .navbar { padding: 0 20px; gap: 16px; }
+    .nav-links { display: none; }
+    .search-box { width: 150px; }
+    .hero { height: auto; padding: 60px 0 40px; }
+    .hero-content { padding: 0 24px 40px; }
+    .hero-title { font-size: 48px; }
+    .content-section { padding: 0 20px; }
+  }
+  </style>
+
+    <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">STREAMFLIX</a>
+    <div class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="index.html">Movies</a>
+      <a href="index.html">Series</a>
+      <a href="index.html">My List</a>
+    </div>
+    <div class="nav-right">
+      <input type="text" class="search-box" placeholder="🔍  Search movies…">
+      <a href="login.html" class="btn btn-red btn-sm">Sign In</a>
+    </div>
+  </nav>
+
+   <!-- Hero -->
+  <section class="hero">
+    <div class="hero-poster">
+      <div class="hero-poster-art"></div>
+    </div>
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-badge">🔥 #1 in Nigeria Today</div>
+      <h1 class="hero-title">DARK<br>HORIZON</h1>
+      <div class="hero-meta">
+        <span class="rating">★ 9.2</span>
+        <span class="dot"></span>
+        <span>2024</span>
+        <span class="dot"></span>
+        <span>2h 34m</span>
+        <span class="dot"></span>
+        <span>Action · Sci-Fi</span>
+      </div>
+      <p class="hero-desc">
+        A lone astronaut discovers a signal from deep space that threatens all of human civilization. Racing against time and her own sanity, she must decode the message before it's too late.
+      </p>
+      <div class="hero-actions">
+        <a href="login.html" class="btn btn-red btn-lg">▶&nbsp; Play Now</a>
+        <a href="movie-detail.html" class="btn btn-outline btn-lg">ℹ&nbsp; More Info</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="spacer"></div>
+
+  <!-- Row: Trending -->
+  <div class="content-section">
+    <div class="section-header">
+      <span class="section-accent"></span>
+      <h2 class="section-title">🔥 Trending Now</h2>
+      <a href="#" class="section-see-all">See all →</a>
+    </div>
+    <div class="movie-grid">
+      <!-- Card 1 with video -->
+      <a href="movie-detail.html" class="movie-card">
+        <div class="card-poster" style="position: relative; overflow: hidden;">
+          <video style="width: 100%; height: 100%; object-fit: cover;" muted loop class="card-video" autoplay>
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+          </video>
+          <div class="poster-fallback p1" style="position: absolute; inset: 0; background: linear-gradient(135deg,#1a1a3e,#0d1a2e,#3e1a0d);"></div>
+        </div>
+        <div class="card-rating">★ 9.2</div>
+        <div class="card-play-icon">▶</div>
+        <div class="card-overlay">
+          <p class="card-title">Dark Horizon</p>
+          <div class="card-meta"><span>Action</span><span>·</span><span>Sci-Fi</span></div>
+        </div>
+      </a>
+
+      <!-- Card 2 with video -->
+      <a href="movie-detail.html" class="movie-card">
+        <div class="card-poster" style="position: relative; overflow: hidden;">
+          <video style="width: 100%; height: 100%; object-fit: cover;" muted loop class="card-video" autoplay>
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+          </video>
+          <div class="poster-fallback p2" style="position: absolute; inset: 0; background: linear-gradient(135deg,#2e0d0d,#1a0d2e,#0d2e1a);"></div>
+        </div>
+        <div class="card-rating">★ 8.7</div>
+        <div class="card-play-icon">▶</div>
+        <div class="card-overlay">
+          <p class="card-title">Neon City</p>
+          <div class="card-meta"><span>Thriller</span><span>·</span><span>Neo-Noir</span></div>
+        </div>
+      </a>
+      <!-- Card 3 with video -->
+      <a href="movie-detail.html" class="movie-card">
+        <div class="card-poster" style="position: relative; overflow: hidden;">
+          <video style="width: 100%; height: 100%; object-fit: cover;" muted loop class="card-video" autoplay>
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" type="video/mp4">
+          </video>
+          <div class="poster-fallback p3" style="position: absolute; inset: 0; background: linear-gradient(135deg,#0d2e2e,#2e0d2e,#1a1a0d);"></div>
+        </div>
+        <div class="card-rating">★ 8.4</div>
+        <div class="card-play-icon">▶</div>
+        <div class="card-overlay">
+          <p class="card-title">The Last Code</p>
+          <div class="card-meta"><span>Drama</span><span>·</span><span>Tech</span></div>
+        </div>
+      </a>
+      <!-- Card 4 with video -->
+      <a href="movie-detail.html" class="movie-card">
+        <div class="card-poster" style="position: relative; overflow: hidden;">
+          <video style="width: 100%; height: 100%; object-fit: cover;" muted loop class="card-video" autoplay>
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4" type="video/mp4">
+          </video>
+          <div class="poster-fallback p4" style="position: absolute; inset: 0; background: linear-gradient(135deg,#2e1a0d,#0d0d2e,#1a2e0d);"></div>
+        </div>
+        <div class="card-rating">★ 7.9</div>
+        <div class="card-play-icon">▶</div>
+        <div class="card-overlay">
+          <p class="card-title">Shadow Run</p>
+          <div class="card-meta"><span>Action</span><span>·</span><span>Crime</span></div>
+        </div>
+      </a>
+      <!-- Card 5 with video -->
+      <a href="movie-detail.html" class="movie-card">
+        <div class="card-poster" style="position: relative; overflow: hidden;">
+          <video style="width: 100%; height: 100%; object-fit: cover;" muted loop class="card-video" autoplay>
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" type="video/mp4">
+          </video>
+          <div class="poster-fallback p5" style="position: absolute; inset: 0; background: linear-gradient(135deg,#1a0d1a,#2e2e0d,#0d1a2e);"></div>
+        </div>
+        <div class="card-rating">★ 8.1</div>
+        <div class="card-play-icon">▶</div>
+        <div class="card-overlay">
+          <p class="card-title">Void Walker</p>
+          <div class="card-meta"><span>Horror</span><span>·</span><span>Sci-Fi</span></div>
+        </div>
+      </a>
+      <!-- Card 6 with video -->
+      <a href="movie-detail.html" class="movie-card">
+        <div class="card-poster" style="position: relative; overflow: hidden;">
+          <video style="width: 100%; height: 100%; object-fit: cover;" muted loop class="card-video" autoplay>
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4" type="video/mp4">
+          </video>
+          <div class="poster-fallback p6" style="position: absolute; inset: 0; background: linear-gradient(135deg,#0d2e0d,#1a0d2e,#2e1a1a);"></div>
+        </div>
+        <div class="card-rating">★ 7.6</div>
+        <div class="card-play-icon">▶</div>
+        <div class="card-overlay">
+          <p class="card-title">Eclipse</p>
+          <div class="card-meta"><span>Mystery</span><span>·</span><span>Drama</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+ <!-- Row: Popular -->
+  <div class="content-section">
+    <div class="section-header">
+      <span class="section-accent"></span>
+      <h2 class="section-title">🌟 Popular on STREAMFLIX</h2>
+      <a href="#" class="section-see-all">See all →</a>
+    </div>
+    <div class="movie-grid">
+      <!-- Popular Card 1 with video -->
+      <a href="movie-detail.html" class="movie-card">
+        <div class="card-poster" style="position: relative; overflow: hidden;">
+          <video style="width: 100%; height: 100%; object-fit: cover;" muted loop class="card-video" autoplay>
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+          </video>
+          <div class="poster-fallback p2" style="position: absolute; inset: 0; background: linear-gradient(135deg,#2e0d0d,#1a0d2e,#0d2e1a);"></div>
+        </div>
+        <div class="card-rating">★ 8.9</div>
+        <div class="card-play-icon">▶</div>
+        <div class="card-overlay">
+          <p class="card-title">Cyber Dawn</p>
+          <div class="card-meta"><span>Action</span><span>·</span><span>Cyberpunk</span></div>
+        </div>
+      </a>
+      <!-- Popular Card 2 with video -->
+      <a href="movie-detail.html" class="movie-card">
+        <div class="card-poster" style="position: relative; overflow: hidden;">
+          <video style="width: 100%; height: 100%; object-fit: cover;" muted loop class="card-video" autoplay>
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+          </video>
+          <div class="poster-fallback p3" style="position: absolute; inset: 0; background: linear-gradient(135deg,#0d2e2e,#2e0d2e,#1a1a0d);"></div>
+        </div>
+        <div class="card-rating">★ 8.2</div>
+        <div class="card-play-icon">▶</div>
+        <div class="card-overlay">
+          <p class="card-title">Lost Signal</p>
+          <div class="card-meta"><span>Thriller</span></div>
+        </div>
+      </a>
+      <!-- Popular Card 3 with video -->
+      <a href="movie-detail.html" class="movie-card">
+        <div class="card-poster" style="position: relative; overflow: hidden;">
+          <video style="width: 100%; height: 100%; object-fit: cover;" muted loop class="card-video" autoplay>
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" type="video/mp4">
+          </video>
+          <div class="poster-fallback p4" style="position: absolute; inset: 0; background: linear-gradient(135deg,#2e1a0d,#0d0d2e,#1a2e0d);"></div>
+        </div>
+        <div class="card-rating">★ 7.8</div>
+        <div class="card-play-icon">▶</div>
+        <div class="card-overlay">
+          <p class="card-title">Red Zone</p>
+          <div class="card-meta"><span>War</span><span>·</span><span>Drama</span></div>
+        </div>
+      </a>
+      <!-- Popular Card 4 with video -->
+      <a href="movie-detail.html" class="movie-card">
+        <div class="card-poster" style="position: relative; overflow: hidden;">
+          <video style="width: 100%; height: 100%; object-fit: cover;" muted loop class="card-video" autoplay>
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4" type="video/mp4">
+          </video>
+          <div class="poster-fallback p5" style="position: absolute; inset: 0; background: linear-gradient(135deg,#1a0d1a,#2e2e0d,#0d1a2e);"></div>
+        </div>
+        <div class="card-rating">★ 8.5</div>
+        <div class="card-play-icon">▶</div>
+        <div class="card-overlay">
+          <p class="card-title">Deep Blue</p>
+          <div class="card-meta"><span>Adventure</span></div>
+        </div>
+      </a>
+      <!-- Popular Card 5 with video -->
+      <a href="movie-detail.html" class="movie-card">
+        <div class="card-poster" style="position: relative; overflow: hidden;">
+          <video style="width: 100%; height: 100%; object-fit: cover;" muted loop class="card-video" autoplay>
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" type="video/mp4">
+          </video>
+          <div class="poster-fallback p1" style="position: absolute; inset: 0; background: linear-gradient(135deg,#1a1a3e,#0d1a2e,#3e1a0d);"></div>
+        </div>
+        <div class="card-rating">★ 7.4</div>
+        <div class="card-play-icon">▶</div>
+        <div class="card-overlay">
+          <p class="card-title">Night Shift</p>
+          <div class="card-meta"><span>Comedy</span><span>·</span><span>Crime</span></div>
+        </div>
+      </a>
+      <!-- Popular Card 6 with video -->
+      <a href="movie-detail.html" class="movie-card">
+        <div class="card-poster" style="position: relative; overflow: hidden;">
+          <video style="width: 100%; height: 100%; object-fit: cover;" muted loop class="card-video" autoplay>
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4" type="video/mp4">
+          </video>
+          <div class="poster-fallback p6" style="position: absolute; inset: 0; background: linear-gradient(135deg,#0d2e0d,#1a0d2e,#2e1a1a);"></div>
+        </div>
+        <div class="card-rating">★ 9.0</div>
+        <div class="card-play-icon">▶</div>
+        <div class="card-overlay">
+          <p class="card-title">The Grid</p>
+          <div class="card-meta"><span>Sci-Fi</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+<!-- Row: New Releases -->
+  <div class="content-section">
+    <div class="section-header">
+      <span class="section-accent"></span>
+      <h2 class="section-title">🆕 New Releases</h2>
+      <a href="#" class="section-see-all">See all →</a>
+    </div>
+    <div class="movie-grid">
+      <!-- New Release Card 1 with video -->
+      <a href="movie-detail.html" class="movie-card">
+        <div class="card-poster" style="position: relative; overflow: hidden;">
+          <video style="width: 100%; height: 100%; object-fit: cover;" muted loop class="card-video" autoplay>
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" type="video/mp4">
+          </video>
+          <div class="poster-fallback p3" style="position: absolute; inset: 0; background: linear-gradient(135deg,#0d2e2e,#2e0d2e,#1a1a0d);"></div>
+        </div>
+        <div class="card-rating">★ 8.3</div>
+        <div class="card-play-icon">▶</div>
+        <div class="card-overlay">
+          <p class="card-title">Pulse</p>
+          <div class="card-meta"><span>Action</span></div>
+        </div>
+      </a>
+      <!-- New Release Card 2 with video -->
+      <a href="movie-detail.html" class="movie-card">
+        <div class="card-poster" style="position: relative; overflow: hidden;">
+          <video style="width: 100%; height: 100%; object-fit: cover;" muted loop class="card-video" autoplay>
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+          </video>
+          <div class="poster-fallback p1" style="position: absolute; inset: 0; background: linear-gradient(135deg,#1a1a3e,#0d1a2e,#3e1a0d);"></div>
+        </div>
+        <div class="card-rating">★ 7.7</div>
+        <div class="card-play-icon">▶</div>
+        <div class="card-overlay">
+          <p class="card-title">Halo Effect</p>
+          <div class="card-meta"><span>Drama</span></div>
+        </div>
+      </a>
+      <!-- New Release Card 3 with video -->
+      <a href="movie-detail.html" class="movie-card">
+        <div class="card-poster" style="position: relative; overflow: hidden;">
+          <video style="width: 100%; height: 100%; object-fit: cover;" muted loop class="card-video" autoplay>
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4" type="video/mp4">
+          </video>
+          <div class="poster-fallback p4" style="position: absolute; inset: 0; background: linear-gradient(135deg,#2e1a0d,#0d0d2e,#1a2e0d);"></div>
+        </div>
+        <div class="card-rating">★ 8.6</div>
+        <div class="card-play-icon">▶</div>
+        <div class="card-overlay">
+          <p class="card-title">Storm Front</p>
+          <div class="card-meta"><span>Disaster</span></div>
+        </div>
+      </a>
+      <!-- New Release Card 4 with video -->
+      <a href="movie-detail.html" class="movie-card">
+        <div class="card-poster" style="position: relative; overflow: hidden;">
+          <video style="width: 100%; height: 100%; object-fit: cover;" muted loop class="card-video" autoplay>
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" type="video/mp4">
+          </video>
+          <div class="poster-fallback p5" style="position: absolute; inset: 0; background: linear-gradient(135deg,#1a0d1a,#2e2e0d,#0d1a2e);"></div>
+        </div>
+        <div class="card-rating">★ 9.1</div>
+        <div class="card-play-icon">▶</div>
+        <div class="card-overlay">
+          <p class="card-title">Iron Will</p>
+          <div class="card-meta"><span>Biographical</span></div>
+        </div>
+      </a>
+      <!-- New Release Card 5 with video -->
+      <a href="movie-detail.html" class="movie-card">
+        <div class="card-poster" style="position: relative; overflow: hidden;">
+          <video style="width: 100%; height: 100%; object-fit: cover;" muted loop class="card-video" autoplay>
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+          </video>
+          <div class="poster-fallback p2" style="position: absolute; inset: 0; background: linear-gradient(135deg,#2e0d0d,#1a0d2e,#0d2e1a);"></div>
+        </div>
+        <div class="card-rating">★ 7.5</div>
+        <div class="card-play-icon">▶</div>
+        <div class="card-overlay">
+          <p class="card-title">Ghost Line</p>
+          <div class="card-meta"><span>Thriller</span></div>
+        </div>
+      </a>
+      <!-- New Release Card 6 with video -->
+      <a href="movie-detail.html" class="movie-card">
+        <div class="card-poster" style="position: relative; overflow: hidden;">
+          <video style="width: 100%; height: 100%; object-fit: cover;" muted loop class="card-video" autoplay>
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4" type="video/mp4">
+          </video>
+          <div class="poster-fallback p6" style="position: absolute; inset: 0; background: linear-gradient(135deg,#0d2e0d,#1a0d2e,#2e1a1a);"></div>
+        </div>
+        <div class="card-rating">★ 8.0</div>
+        <div class="card-play-icon">▶</div>
+        <div class="card-overlay">
+          <p class="card-title">Phase Zero</p>
+          <div class="card-meta"><span>Sci-Fi</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+  <footer>© 2024 <span>STREAMFLIX</span> · All Rights Reserved · For Portfolio & Academic Use</footer>
+
+</body>
+</html>
