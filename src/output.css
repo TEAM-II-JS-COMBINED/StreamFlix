@@ -11,12 +11,13 @@
     --color-red-500: oklch(63.7% 0.237 25.331);
     --color-red-700: oklch(50.5% 0.213 27.518);
     --color-red-900: oklch(39.6% 0.141 25.723);
-    --color-green-500: oklch(72.3% 0.219 149.579);
     --color-gray-400: oklch(70.7% 0.022 261.325);
     --color-gray-600: oklch(44.6% 0.03 256.802);
     --color-gray-700: oklch(37.3% 0.034 259.733);
     --color-white: #fff;
     --spacing: 0.25rem;
+    --text-xs: 0.75rem;
+    --text-xs--line-height: calc(1 / 0.75);
     --text-sm: 0.875rem;
     --text-sm--line-height: calc(1.25 / 0.875);
     --text-2xl: 1.5rem;
@@ -276,6 +277,9 @@
   .gap-2\.5 {
     gap: calc(var(--spacing) * 2.5);
   }
+  .overflow-hidden {
+    overflow: hidden;
+  }
   .rounded-2xl {
     border-radius: var(--radius-2xl);
   }
@@ -350,9 +354,6 @@
   .text-gray-600 {
     color: var(--color-gray-600);
   }
-  .text-green-500 {
-    color: var(--color-green-500);
-  }
   .text-red-500 {
     color: var(--color-red-500);
   }
@@ -401,39 +402,29 @@
       }
     }
   }
-  .hover\:shadow-red-400 {
-    &:hover {
-      @media (hover: hover) {
-        --tw-shadow-color: oklch(70.4% 0.191 22.216);
-        @supports (color: color-mix(in lab, red, red)) {
-          --tw-shadow-color: color-mix(in oklab, var(--color-red-400) var(--tw-shadow-alpha), transparent);
-        }
-      }
+  .max-sm\:h-\[70vh\] {
+    @media (width < 40rem) {
+      height: 70vh;
     }
   }
-  .max-sm\:bg-\[\#18181a\] {
+  .max-sm\:w-\[50vw\] {
     @media (width < 40rem) {
-      background-color: #18181a;
+      width: 50vw;
     }
   }
-  .max-sm\:bg-\[\#\] {
+  .max-sm\:w-\[60vw\] {
     @media (width < 40rem) {
-      background-color: #;
+      width: 60vw;
     }
   }
-  .max-sm\:bg-\[\#f1\] {
+  .max-sm\:flex-col {
     @media (width < 40rem) {
-      background-color: #f1;
+      flex-direction: column;
     }
   }
-  .max-sm\:bg-\[\#f103\] {
+  .max-sm\:text-\[13px\] {
     @media (width < 40rem) {
-      background-color: #f103;
-    }
-  }
-  .max-sm\:bg-\[\#f103i\] {
-    @media (width < 40rem) {
-      background-color: #f103i;
+      font-size: 13px;
     }
   }
 }
