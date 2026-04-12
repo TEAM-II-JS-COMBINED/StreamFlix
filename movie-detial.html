@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamFLix Movie Details</title>
+    <link rel="stylesheet" href="src/output.css">
+    <script src="https://kit.fontawesome.com/fbf4810423.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="bg-[#0e0e0e]">
+    <header>
+        <nav class="flex justify-between items-center sticky top-0 z-10 h-16 bg-[rgba(0,0,0,0.95)] px-4 md:px-12">
+
+            <div class="flex items-center gap-6">
+
+                <a href="index.html" class="text-[#e50914] font-semibold text-xl md:text-2xl">
+                    STREAMFLIX
+                </a>
+
+                <div class="hidden md:flex gap-6 text-[#b3b3b3] text-sm font-semibold">
+                    <a href="index.html" class="hover:text-white">Home</a>
+                    <a href="movie-detail.html" class="text-white">Movies</a>
+                    <a href="register.html" class="hover:text-white">Series</a>
+                    <a href="login.html" class="hover:text-white">My List</a>
+                </div>
+
+            </div>
+
+            <div class="flex items-center gap-3">
+
+                <i class="fa-regular fa-bell text-white text-lg md:text-2xl"></i>
+
+                <img class="rounded-full w-8 md:w-10" src="images/263388807.jpeg" alt="Profile photo">
+
+                <i class="fa-solid fa-caret-down text-white"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+
+    <section class="relative text-white">
+        <div class="w-full h-[400px] md:h-[500px] lg:h-[600px] relative">
+
+
+            <img class="w-full h-48 sm:h-64 md:h-full object-cover" src="images/Night Agent.jpg"
+                alt="Night agent poster">
+
+
+            <div class="absolute bottom-4 left-0 w-full px-4 sm:px-8 md:px-12 lg:px-28">
+                <!-- <h2 class="text-xl sm:text-2xl md:text-4xl text-[#e50914] font-bold mb-4">STREAMFLIX</h2> -->
+
+                <div class="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center">
+
+
+                    <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+                        <button
+                            class="flex items-center justify-center gap-2 rounded-lg h-12 w-full sm:w-32 bg-[#e50914] font-medium">
+                            <i class="fa-solid fa-play"></i> Play Now
+                        </button>
+
+                        <button class="rounded-lg h-12 w-full sm:w-32 bg-[#2a2a2a] font-medium border">
+                            Add to Favorite
+                        </button>
+                    </div>
+
+                    <div class="flex text-lg sm:text-2xl gap-4 justify-start sm:justify-end">
+                        <i class="fa-regular fa-thumbs-up"></i>
+                        <i class="fa-regular fa-thumbs-down"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- About movie -->
+    <section>
+        <div class="flex flex-col md:flex-row md:justify-between text-white px-4 sm:px-8 md:px-16 lg:px-28 mt-5 gap-6">
+
+            <div class="text-sm sm:text-base md:text-lg">
+
+                <p class="text-[#b3b3b3]">2021, 2 Hrs 30 Mins</p>
+
+                <p class="mt-4 leading-relaxed">This thriller pits cop against cop when a stash house <br> raid uncovers
+                    millions of
+                    dollars.</p>
+
+                <div class="flex items-center gap-2 mt-2">
+                    <i class="fa-solid fa-star text-yellow-400 text-lg"></i>
+                    <p class="text-lg font-semibold">8.9/10</p>
+                </div>
+            </div>
+
+            <div class="text-sm sm:text-base md:text-lg">
+
+                <p class="mt-2"><span class="text-[#b3b3b3]">Cast:</span> Mark Demon, Ben Affleck, Steven Yeun</p>
+                <p class="mt-2"><span class="text-[#b3b3b3]">Genre:</span> Crime, Action and Adventure</p>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Trailer -->
+    <section>
+        <h2
+            class="text-xl font-extrabold sm:text-2xl md:text-3xl text-white px-4 sm:px-8 md:px-16 lg:px-28 mt-10 md:mt-16 mb-6 md:mb-8">
+            Trailer
+        </h2>
+
+        <div class="px-4 sm:px-8 md:px-16 lg:px-28 mb-6 md:mb-8">
+            <div class="w-full aspect-video">
+                <iframe class="w-full h-full rounded-lg"
+                    src="https://www.youtube.com/embed/YDbnY9Obsfs?si=OqdMUWkK0yS6xVMQ" title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- similar movies -->
+    <section>
+
+        <h2
+            class="text-xl font-extrabold sm:text-2xl md:text-3xl text-white px-4 sm:px-8 md:px-16 lg:px-28 mt-10 md:mt-16 mb-6 md:mb-8">
+            Find Similar Movies
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 px-4 sm:px-8 md:px-16 lg:px-28 text-white">
+
+            <div class="bg-[#2a2a2a] rounded-2xl p-4 sm:p-6 md:p-8">
+                <img src="images/Van Helsing.jpg" alt="Van Helsing poster">
+                <div class="flex justify-between items-center">
+                    <p class="mt-4"><span class="border border-white rounded-md p-1 mr-3"> 18+ </span> 2025</p>
+
+                </div>
+
+                <p class="mt-5 text-sm">Lorem ipsum dolor si amet consectetur, adcing. <br> Voluptatum illum provident
+                    beatae gsduwu
+                    <br>
+                    incidunt, doloribus aspernatur veritatis tem<br> possimus architecto voluptas ullam.
+                </p>
+            </div>
+
+            <div class="bg-[#2a2a2a] rounded-2xl p-4 sm:p-6 md:p-8">
+                <img src="images/Super girl.webp" alt="Super girl poster">
+                <div class="flex justify-between items-center">
+                    <p class="mt-4"><span class="border border-white rounded-md p-1 mr-3"> 18+ </span> 2025</p>
+
+                </div>
+                <p class="mt-5 text-sm">Lorem ipsum dolor si amet consectetur, adcing. <br> Voluptatum illum provident
+                    beatae gsduwu
+                    <br>
+                    incidunt, doloribus aspernatur veritatis tem<br> possimus architecto voluptas ullam.
+                </p>
+            </div>
+
+            <div class="bg-[#2a2a2a] rounded-2xl p-4 sm:p-6 md:p-8">
+                <img src="images/Spartacus.webp" alt="Spartacus poster">
+                <div class="flex justify-between items-center">
+                    <p class="mt-4"><span class="border border-white rounded-md p-1 mr-3"> 18+ </span> 2025</p>
+
+                </div>
+                <p class="mt-5 text-sm">Lorem ipsum dolor si amet consectetur, adcing. <br> Voluptatum illum provident
+                    beatae gsduwu
+                    <br>
+                    incidunt, doloribus aspernatur veritatis tem<br> possimus architecto voluptas ullam.
+                </p>
+            </div>
+
+
+            <div class="bg-[#2a2a2a] rounded-2xl p-4 sm:p-6 md:p-8">
+                <img src="images/walking dead.webp" alt="walking dead poster">
+                <div class="flex justify-between items-center">
+                    <p class="mt-4"><span class="border border-white rounded-md p-1 mr-3"> 18+ </span> 2025</p>
+
+                </div>
+                <p class="mt-5 text-sm">Lorem ipsum dolor si amet consectetur, adcing. <br> Voluptatum illum provident
+                    beatae gsduwu
+                    <br>
+                    incidunt, doloribus aspernatur veritatis tem<br> possimus architecto voluptas ullam.
+                </p>
+            </div>
+
+            <div class="bg-[#2a2a2a] rounded-2xl p-4 sm:p-6 md:p-8">
+                <img src="images/Marco Polo.jpg" alt="marcopolo poster">
+                <div class="flex justify-between items-center">
+                    <p class="mt-4"><span class="border border-white rounded-md p-1 mr-3"> 18+ </span> 2025</p>
+
+                </div>
+                <p class="mt-5 text-sm">Lorem ipsum dolor si amet consectetur, adcing. <br> Voluptatum illum provident
+                    beatae gsduwu
+                    <br>
+                    incidunt, doloribus aspernatur veritatis tem<br> possimus architecto voluptas ullam.
+                </p>
+            </div>
+            <div class="bg-[#2a2a2a] rounded-2xl p-4 sm:p-6 md:p-8">
+                <img src="images/suits.webp" alt="suits poster">
+                <div class="flex justify-between items-center">
+                    <p class="mt-4"><span class="border border-white rounded-md p-1 mr-3"> 18+ </span> 2025</p>
+
+                </div>
+                <p class="mt-5 text-sm">Lorem ipsum dolor si amet consectetur, adcing. <br> Voluptatum illum provident
+                    beatae gsduwu
+                    <br>
+                    incidunt, doloribus aspernatur veritatis tem<br> possimus architecto voluptas ullam.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- writers and producers and cast -->
+    <section>
+
+        <h2
+            class="text-xl font-extrabold sm:text-2xl md:text-3xl text-white px-4 sm:px-8 md:px-16 lg:px-28 mt-10 md:mt-16 mb-6 md:mb-8">
+            About this Movies
+        </h2>
+
+        <div class="text-white px-4 sm:px-8 md:px-16 lg:px-28 mb-5">
+            <p class="mt-2"><span class="text-[#b3b3b3]">Director:</span> Mark John</p>
+            <p class="mt-2"><span class="text-[#b3b3b3]">Writer:</span> Mark DJoe</p>
+            <p class="mt-2"><span class="text-[#b3b3b3]">Cast:</span> Mark Demon, Ben Affleck, Steven Yeun</p>
+
+            <p class="mt-2"><span class="text-[#b3b3b3]">Genre:</span> Crime, Action and Adventure</p>
+            <p class="mt-2"><span class="text-[#b3b3b3]">Matururity Rating:</span> 18 +</p>
+
+        </div>
+    </section>
+
+    <footer class="text-sm text-gray-400 mt-10 mb-3 px-4 sm:px-8 md:px-16 lg:px-28">
+        <p>Inspired by Netflix</p>
+    </footer>
+</body>
+
+</html>
