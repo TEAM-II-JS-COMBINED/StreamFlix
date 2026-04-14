@@ -10,55 +10,9 @@
     href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@300;400;500;600&display=swap"
     rel="stylesheet"
   />
-
-  <!-- Tailwind CLI compiled output -->
   <link rel="stylesheet" href="src/output.css" />
 
-  <!--
-    ─────────────────────────────────────────────
-    Add these tokens to your tailwind.config.js:
-    ─────────────────────────────────────────────
-    theme: {
-      extend: {
-        colors: {
-          'sf-red':      '#e50914',
-          'sf-red-hov':  '#b81c21',
-          'sf-bg':       '#0a0a0a',
-          'sf-card':     '#1c1c1e',
-          'sf-input':    '#242426',
-          'sf-input-hov':'#2c2c2e',
-          'sf-border':   '#3a3a3c',
-          'sf-label':    '#8e8e93',
-          'sf-ph':       '#48484a',
-          'sf-sub':      '#aeaeb2',
-        },
-        fontFamily: {
-          condensed: ['"Barlow Condensed"', 'sans-serif'],
-          barlow:    ['"Barlow"', 'sans-serif'],
-        },
-        boxShadow: {
-          'card':   '0 20px 60px rgba(0,0,0,0.60), 0 4px 16px rgba(0,0,0,0.40)',
-          'btn-red':'0 4px 14px rgba(229,9,20,0.35)',
-          'btn-red-hov':'0 6px 20px rgba(229,9,20,0.45)',
-          'focus-red':'0 0 0 3px rgba(229,9,20,0.18)',
-        },
-      },
-    }
-    ─────────────────────────────────────────────
-    Then run:
-      npx tailwindcss -i ./src/input.css -o ./src/output.css --watch
-    ─────────────────────────────────────────────
-  -->
-</head>
-
-<!--
-  body
-  • bg-[#0a0a0a]      — near-black background
-  • font-barlow       — Barlow body font
-  • min-h-screen      — full viewport height
-  • flex flex-col     — header + main stacked
-  Radial red glow bottom-left via a fixed pseudo-like div
--->
+ 
 <body class="bg-[#0a0a0a] font-barlow text-white min-h-screen flex flex-col relative overflow-x-hidden">
 
   <!-- ── Red radial background glow (bottom-left, matching screenshot) ── -->
@@ -84,16 +38,6 @@
        MAIN — card centered vertically
   ════════════════════════════════════════ -->
   <main class="relative z-10 flex flex-1 items-center justify-center px-4 py-10">
-
-    <!--
-      Card
-      • w-full max-w-[310px]   — matches screenshot card width
-      • bg-[#1c1c1e]           — dark card bg
-      • rounded-2xl            — ~14px radius
-      • border border-white/5  — subtle 1px border
-      • shadow-card            — deep layered shadow
-      • px-8 py-9              — inner padding
-    -->
     <div
       class="w-full max-w-[310px] bg-[#1c1c1e] rounded-2xl
              border border-white/5
