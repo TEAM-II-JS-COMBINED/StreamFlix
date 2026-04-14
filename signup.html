@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>STREAMFLIX – Create Account</title>
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Tailwind CLI compiled output -->
+  <link rel="stylesheet" href="src/output.css" />
+
+  <!--
+    ─────────────────────────────────────────────
+    Add these tokens to your tailwind.config.js:
+    ─────────────────────────────────────────────
+    theme: {
+      extend: {
+        colors: {
+          'sf-red':      '#e50914',
+          'sf-red-hov':  '#b81c21',
+          'sf-bg':       '#0a0a0a',
+          'sf-card':     '#1c1c1e',
+          'sf-input':    '#242426',
+          'sf-input-hov':'#2c2c2e',
+          'sf-border':   '#3a3a3c',
+          'sf-label':    '#8e8e93',
+          'sf-ph':       '#48484a',
+          'sf-sub':      '#aeaeb2',
+        },
+        fontFamily: {
+          condensed: ['"Barlow Condensed"', 'sans-serif'],
+          barlow:    ['"Barlow"', 'sans-serif'],
+        },
+        boxShadow: {
+          'card':   '0 20px 60px rgba(0,0,0,0.60), 0 4px 16px rgba(0,0,0,0.40)',
+          'btn-red':'0 4px 14px rgba(229,9,20,0.35)',
+          'btn-red-hov':'0 6px 20px rgba(229,9,20,0.45)',
+          'focus-red':'0 0 0 3px rgba(229,9,20,0.18)',
+        },
+      },
+    }
+    ─────────────────────────────────────────────
+    Then run:
+      npx tailwindcss -i ./src/input.css -o ./src/output.css --watch
+    ─────────────────────────────────────────────
+  -->
+</head>
+
+<!--
+  body
+  • bg-[#0a0a0a]      — near-black background
+  • font-barlow       — Barlow body font
+  • min-h-screen      — full viewport height
+  • flex flex-col     — header + main stacked
+  Radial red glow bottom-left via a fixed pseudo-like div
+-->
+<body class="bg-[#0a0a0a] font-barlow text-white min-h-screen flex flex-col relative overflow-x-hidden">
+
+  <!-- ── Red radial background glow (bottom-left, matching screenshot) ── -->
+  <div
+    class="fixed inset-0 pointer-events-none z-0"
+    style="background: radial-gradient(ellipse 55% 50% at 15% 65%, rgba(229,9,20,0.22) 0%, transparent 70%)"
+    aria-hidden="true"
+  ></div>
+
+  <!-- ════════════════════════════════════════
+       TOPBAR / LOGO
+  ════════════════════════════════════════ -->
+  <header class="relative z-10 px-8 sm:px-10 py-5">
+    <a
+      href="index.html"
+      class="font-condensed text-2xl font-extrabold tracking-widest uppercase text-[#e50914] no-underline"
+    >
+      Streamflix
+    </a>
+  </header>
+
+  <!-- ════════════════════════════════════════
+       MAIN — card centered vertically
+  ════════════════════════════════════════ -->
+  <main class="relative z-10 flex flex-1 items-center justify-center px-4 py-10">
+
+    <!--
+      Card
+      • w-full max-w-[310px]   — matches screenshot card width
+      • bg-[#1c1c1e]           — dark card bg
+      • rounded-2xl            — ~14px radius
+      • border border-white/5  — subtle 1px border
+      • shadow-card            — deep layered shadow
+      • px-8 py-9              — inner padding
+    -->
+    <div
+      class="w-full max-w-[310px] bg-[#1c1c1e] rounded-2xl
+             border border-white/5
+             shadow-[0_20px_60px_rgba(0,0,0,0.60),_0_4px_16px_rgba(0,0,0,0.40)]
+             px-8 py-9"
+    >
+
+      <!-- ── Heading ── -->
+      <h1
+        class="font-condensed text-[1.75rem] font-extrabold tracking-widest
+               uppercase text-white leading-none mb-2"
+      >
+        Create Account
+      </h1>
+
+      <!-- ── Subheadline ── -->
+      <p class="text-[0.82rem] text-[#aeaeb2] font-light leading-relaxed mb-7">
+        Join <span class="font-semibold text-white">STREAMFLIX</span>
+        and start watching today — free for 30 days.
+      </p>
+
+      <!-- ════════════════════════════════════════
+           FORM  (UI only — no JS required)
+      ════════════════════════════════════════ -->
+      <form action="#" method="POST" novalidate class="flex flex-col gap-4">
+
+        <!-- ── Full Name ── -->
+        <div class="flex flex-col gap-[7px]">
+          <label
+            for="fullname"
+            class="text-[0.62rem] font-semibold tracking-[0.12em]
+                   uppercase text-[#8e8e93]"
+          >
+            Full Name
+          </label>
+          <input
+            type="text"
+            id="fullname"
+            name="fullname"
+            placeholder="Your full name"
+            autocomplete="name"
+            required
+            minlength="2"
+            class="w-full bg-[#242426] border border-[#3a3a3c] rounded-lg
+                   px-[14px] py-[11px]
+                   text-[0.83rem] text-white font-barlow font-light
+                   placeholder:text-[#48484a] placeholder:font-light
+                   outline-none
+                   transition-all duration-200
+                   hover:bg-[#2c2c2e] hover:border-[#4a4a4c]
+                   focus:bg-[#2c2c2e] focus:border-[#e50914]
+                   focus:shadow-[0_0_0_3px_rgba(229,9,20,0.18)]
+                   valid:[&:not(:placeholder-shown)]:border-[#3a8a3a]
+                   invalid:[&:not(:placeholder-shown)]:border-[#e50914]"
+          />
+        </div>
+
+        <!-- ── Email Address ── -->
+        <div class="flex flex-col gap-[7px]">
+          <label
+            for="email"
+            class="text-[0.62rem] font-semibold tracking-[0.12em]
+                   uppercase text-[#8e8e93]"
+          >
+            Email Address
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="you@example.com"
+            autocomplete="email"
+            required
+            class="w-full bg-[#242426] border border-[#3a3a3c] rounded-lg
+                   px-[14px] py-[11px]
+                   text-[0.83rem] text-white font-barlow font-light
+                   placeholder:text-[#48484a] placeholder:font-light
+                   outline-none
+                   transition-all duration-200
+                   hover:bg-[#2c2c2e] hover:border-[#4a4a4c]
+                   focus:bg-[#2c2c2e] focus:border-[#e50914]
+                   focus:shadow-[0_0_0_3px_rgba(229,9,20,0.18)]
+                   valid:[&:not(:placeholder-shown)]:border-[#3a8a3a]
+                   invalid:[&:not(:placeholder-shown)]:border-[#e50914]"
+          />
+        </div>
+
+        <!-- ── Password ── -->
+        <div class="flex flex-col gap-[7px]">
+          <label
+            for="password"
+            class="text-[0.62rem] font-semibold tracking-[0.12em]
+                   uppercase text-[#8e8e93]"
+          >
+            Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Create a strong password"
+            autocomplete="new-password"
+            required
+            minlength="8"
+            class="w-full bg-[#242426] border border-[#3a3a3c] rounded-lg
+                   px-[14px] py-[11px]
+                   text-[0.83rem] text-white font-barlow font-light
+                   placeholder:text-[#48484a] placeholder:font-light
+                   outline-none
+                   transition-all duration-200
+                   hover:bg-[#2c2c2e] hover:border-[#4a4a4c]
+                   focus:bg-[#2c2c2e] focus:border-[#e50914]
+                   focus:shadow-[0_0_0_3px_rgba(229,9,20,0.18)]
+                   valid:[&:not(:placeholder-shown)]:border-[#3a8a3a]
+                   invalid:[&:not(:placeholder-shown)]:border-[#e50914]"
+          />
+        </div>
+
+        <!-- ── Confirm Password ── -->
+        <div class="flex flex-col gap-[7px]">
+          <label
+            for="confirm-password"
+            class="text-[0.62rem] font-semibold tracking-[0.12em]
+                   uppercase text-[#8e8e93]"
+          >
+            Confirm Password
+          </label>
+          <input
+            type="password"
+            id="confirm-password"
+            name="confirm-password"
+            placeholder="Repeat your password"
+            autocomplete="new-password"
+            required
+            minlength="8"
+            class="w-full bg-[#242426] border border-[#3a3a3c] rounded-lg
+                   px-[14px] py-[11px]
+                   text-[0.83rem] text-white font-barlow font-light
+                   placeholder:text-[#48484a] placeholder:font-light
+                   outline-none
+                   transition-all duration-200
+                   hover:bg-[#2c2c2e] hover:border-[#4a4a4c]
+                   focus:bg-[#2c2c2e] focus:border-[#e50914]
+                   focus:shadow-[0_0_0_3px_rgba(229,9,20,0.18)]
+                   valid:[&:not(:placeholder-shown)]:border-[#3a8a3a]
+                   invalid:[&:not(:placeholder-shown)]:border-[#e50914]"
+          />
+        </div>
+
+        <!-- ── Submit button ── -->
+        <button
+          type="submit"
+          class="w-full mt-2 py-[13px]
+                 bg-[#e50914] hover:bg-[#b81c21]
+                 text-white font-condensed font-bold text-[1rem] tracking-wide
+                 capitalize rounded-lg border-none cursor-pointer
+                 shadow-[0_4px_14px_rgba(229,9,20,0.35)]
+                 hover:shadow-[0_6px_20px_rgba(229,9,20,0.48)]
+                 hover:-translate-y-px
+                 active:translate-y-0 active:shadow-[0_2px_8px_rgba(229,9,20,0.30)]
+                 transition-all duration-200"
+        >
+          Create Account
+        </button>
+
+      </form><!-- /form -->
+
+      <!-- ── Sign-in redirect ── -->
+      <p class="mt-6 text-center text-[0.78rem] text-[#aeaeb2] font-light">
+        Already have an account?
+        <a
+          href="login.html"
+          class="text-[#e50914] font-medium ml-1 no-underline
+                 hover:text-[#ff2d3a] hover:underline transition-colors duration-200"
+        >
+          Sign in →
+        </a>
+      </p>
+
+    </div><!-- /card -->
+  </main><!-- /main -->
+
+</body>
+</html>
